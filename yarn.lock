@@ -1133,6 +1133,11 @@
     "is-promise" "^2.0.0"
     "promise" "^7.0.1"
 
+"live2d-widget-model-tororo@^1.0.5":
+  "integrity" "sha512-qcDZnXyzmNM5NADDAWpknWMCqoip3CZ9bYrKKB0PqusnrUTK0e5k1jAl+RCos9Sbg9g1xzse50vmREwj1LiJ3w=="
+  "resolved" "https://registry.npmmirror.com/live2d-widget-model-tororo/-/live2d-widget-model-tororo-1.0.5.tgz"
+  "version" "1.0.5"
+
 "lower-case@^2.0.2":
   "integrity" "sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg=="
   "resolved" "https://registry.npmmirror.com/lower-case/-/lower-case-2.0.2.tgz"
