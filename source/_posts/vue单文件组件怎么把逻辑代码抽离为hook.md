@@ -1,7 +1,10 @@
 ---
 title: vue单文件组件怎么把逻辑代码抽离为hook
 date: 2023-09-27 14:46:58
+categories:
+ - vue
 tags:
+ - 组件拆分
 ---
 ---
 theme: smartblue

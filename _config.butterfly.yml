@@ -23,10 +23,10 @@ nav:
 menu:
   主页: / || fas fa-home
   归档: /archives/ || fas fa-archive
-  # 标签: /tags/ || fas fa-tags
-  # 分类: /categories/ || fas fa-folder-open
+  标签: /tags/ || fas fa-tags
+  分类: /categories/ || fas fa-folder-open
   # 友链: /link/ || fas fa-link
-  # 关于: /about/ || fas fa-heart
+  关于: /about/ || fas fa-heart
   # 清单||fas fa-list:
   #    - 音乐 || /music/ || fas fa-music
   #    - 电影 || /movies/ || fas fa-video
@@ -489,7 +489,7 @@ facebook_comments:
   user_id: # optional
   pageSize: 10 # The number of comments to show
   order_by: social # social/time/reverse_time
-  lang: zh_TW # Language en_US/zh_CN/zh_TW and so on
+  lang: zh_CN # Language en_US/zh_CN/zh_TW and so on
 
 # Twikoo
 # https://github.com/imaegoo/twikoo
@@ -564,7 +564,7 @@ crisp:
 messenger:
   enable: false
   pageID:
-  lang: zh_TW # Language en_US/zh_CN/zh_TW and so on
+  lang: zh_CN # Language en_US/zh_CN/zh_TW and so on
 
 # Analysis
 # --------------------------------------
