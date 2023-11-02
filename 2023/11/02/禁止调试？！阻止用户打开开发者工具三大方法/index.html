@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>禁止调试？！阻止用户打开开发者工具三大方法 | ilses1's Blogs</title><meta name="author" content="ilses1"><meta name="copyright" content="ilses1"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言!之前有群友发过来一个网址,向我们问问题,结果网页一打开调试工具就跳转空白页,这个可给我气坏了,我倒要看看怎么实现这个.看看怎么阻止用户打开开发者工具. 1.禁用按键通过  F12,  右键菜单选择检查,  键盘contextmenu按键选择检查,  shift+F10选择检查,  ctrl+shift+I 都可以打开开发者工具. 所以第一种阻止用户打开开发者工具的方法就是阻止这些按键.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="禁止调试？！阻止用户打开开发者工具三大方法">
+<meta property="og:url" content="http://example.com/2023/11/02/%E7%A6%81%E6%AD%A2%E8%B0%83%E8%AF%95%EF%BC%9F%EF%BC%81%E9%98%BB%E6%AD%A2%E7%94%A8%E6%88%B7%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%B8%89%E5%A4%A7%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="ilses1&#39;s Blogs">
+<meta property="og:description" content="前言!之前有群友发过来一个网址,向我们问问题,结果网页一打开调试工具就跳转空白页,这个可给我气坏了,我倒要看看怎么实现这个.看看怎么阻止用户打开开发者工具. 1.禁用按键通过  F12,  右键菜单选择检查,  键盘contextmenu按键选择检查,  shift+F10选择检查,  ctrl+shift+I 都可以打开开发者工具. 所以第一种阻止用户打开开发者工具的方法就是阻止这些按键.">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:published_time" content="2023-11-02T03:32:48.000Z">
+<meta property="article:modified_time" content="2023-11-02T03:42:40.931Z">
+<meta property="article:author" content="ilses1">
+<meta property="article:tag" content="调试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/2023/11/02/%E7%A6%81%E6%AD%A2%E8%B0%83%E8%AF%95%EF%BC%9F%EF%BC%81%E9%98%BB%E6%AD%A2%E7%94%A8%E6%88%B7%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%B8%89%E5%A4%A7%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '禁止调试？！阻止用户打开开发者工具三大方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-02 11:42:40'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ilses1's Blogs"><span class="site-name">ilses1's Blogs</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">禁止调试？！阻止用户打开开发者工具三大方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-02T03:32:48.000Z" title="Created 2023-11-02 11:32:48">2023-11-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-02T03:42:40.931Z" title="Updated 2023-11-02 11:42:40">2023-11-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="禁止调试？！阻止用户打开开发者工具三大方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言!"></a>前言!</h1><p>之前有群友发过来一个网址,向我们问问题,结果网页一打开调试工具就跳转空白页,这个可给我气坏了,我倒要看看怎么实现这个.看看怎么阻止用户打开开发者工具.</p>
+<h1 id="1-禁用按键"><a href="#1-禁用按键" class="headerlink" title="1.禁用按键"></a>1.禁用按键</h1><p>通过</p>
+<ul>
+<li><p>F12,</p>
+</li>
+<li><p>右键菜单选择检查,</p>
+</li>
+<li><p>键盘contextmenu按键选择检查,</p>
+</li>
+<li><p>shift+F10选择检查,</p>
+</li>
+<li><p>ctrl+shift+I</p>
+<p>都可以打开开发者工具.</p>
+<p>所以第一种阻止用户打开开发者工具的方法就是阻止这些按键.</p>
+</li>
+</ul>
+<h3 id="代码实现如下"><a href="#代码实现如下" class="headerlink" title="代码实现如下:"></a>代码实现如下:</h3><ul>
+<li>注意,keyCode已弃用,这里使用key和code来实现</li>
+</ul>
+<p>其中key是返回的按下的按键值,区分大小写</p>
+<p>而code返回的是对应按键的特征值,不区分大小写</p>
+<p>MDN实际例子如下:</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/play">https://developer.mozilla.org/en-US/play</a></p>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/084aa04039fb4d05b728652ab4f76326~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=543&h=281&s=34953&e=png&b=fefefe" alt="image-20231026102057439.png"></p>
+<p>我们看到key区分大小写并且和点击按键名相同,code值不区分大小写,一个按键一个值并且和实际点击按键名不同</p>
+<ul>
+<li>我的建议是当涉及字母不区分大小写时使用code值</li>
+<li>字母区分大小写时使用key值</li>
+<li>其他按键key和code都可以用</li>
+</ul>
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cd183de2796140b19c74a4484a44f70c~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=898&h=245&s=37227&e=png&b=f9e4e9" alt="image-20231026094947592.png"></p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0aa735e0fc174f81ab89936549b834e7~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=931&h=207&s=22087&e=png&b=ffffff" alt="image-20231026095117265.png"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7701f0aaa46492d8ba71c293a908cdd~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=924&h=187&s=22289&e=png&b=ffffff" alt="image-20231026100704729.png"></p>
+<ul>
+<li>禁用右键菜单和contextmenu,</li>
+<li>阻止contextmenu默认事件,同时可以阻止鼠标右键显示菜单,同时也可以阻止键盘上的contextmenu按键唤起菜单,实现阻止调试的效果</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;contextmenu&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">        e.<span class="title function_">preventDefault</span>();</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>禁用f12,禁用ctrl+shift+i,禁用shift+f10</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;keydown&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 禁止f12,禁用ctrl+shift+i,禁用shift+f10</span></span><br><span class="line">        <span class="keyword">if</span> (e.<span class="property">code</span> === <span class="string">&#x27;F12&#x27;</span> || e.<span class="property">ctrlKey</span> &amp;&amp; e.<span class="property">shiftKey</span> &amp;&amp; e.<span class="property">code</span> === <span class="string">&#x27;KeyI&#x27;</span> || e.<span class="property">shiftKey</span> &amp;&amp; e.<span class="property">code</span> === <span class="string">&#x27;F10&#x27;</span>) &#123;</span><br><span class="line">            e.<span class="title function_">preventDefault</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-断点阻止"><a href="#2-断点阻止" class="headerlink" title="2.断点阻止"></a>2.断点阻止</h1><p>给代码加 debugger</p>
+<p>我们使用一个定时器不停执行debugger</p>
+<ul>
+<li>当没有打开开发者工具时debugger不会生效</li>
+<li>打开开发者工具时debugger才会生效</li>
+</ul>
+<p>代码如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">        <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">debugger</span>;</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-使用插件"><a href="#3-使用插件" class="headerlink" title="3.使用插件"></a>3.使用插件</h1><p>已经有人写了一个插件来实现防止用户调试的目的</p>
+<p>这个插件叫做disable-devtool,npm链接如下</p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/disable-devtool">https://www.npmjs.com/package/disable-devtool</a></p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5ff488957eeb4a5480c6593159b2b9c7~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=507&h=121&s=9822&e=png&b=fffefe" alt="image-20231027154332765.png"></p>
+<h3 id="使用如下"><a href="#使用如下" class="headerlink" title="使用如下"></a>使用如下</h3><ul>
+<li>1.安装插件<code>npm i disable-devtool</code></li>
+<li>2.引入项目</li>
+</ul>
+<p>我这里使用的是之前写的测试vue项目,我把他引到main.ts中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">DisableDevtool</span> <span class="keyword">from</span> <span class="string">&#x27;disable-devtool&#x27;</span>;</span><br><span class="line">​</span><br><span class="line"><span class="title class_">DisableDevtool</span>(&#123;</span><br><span class="line">    ...........<span class="comment">//配置项</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.增加配置项</li>
+</ul>
+<p>因为这个插件的开发者是中国人,所以有详细的中文注释,很容易上手</p>
+<p>插件开发者的博客:<a target="_blank" rel="noopener" href="https://www.shiyix.cn/">https://www.shiyix.cn/</a></p>
+<p>options配置如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">interface <span class="title class_">IConfig</span> &#123;</span><br><span class="line">    <span class="attr">md5</span>: string; <span class="comment">// 绕过禁用的md5值，详情见3.2，默认不启用绕过禁用</span></span><br><span class="line">    <span class="attr">url</span>: string; <span class="comment">// 关闭页面失败时的跳转页面，默认值为localhost</span></span><br><span class="line">    <span class="attr">timeOutUrl</span>: string; <span class="comment">// 关闭页面超时跳转的url</span></span><br><span class="line">    <span class="attr">tkName</span>: string; <span class="comment">// 绕过禁用时的url参数名称，默认为 ddtk</span></span><br><span class="line">    <span class="title function_">ondevtoolopen</span>(<span class="attr">type</span>: <span class="title class_">DetectorType</span>, <span class="attr">next</span>: <span class="title class_">Function</span>): <span class="keyword">void</span>; <span class="comment">// 开发者面板打开的回调，启用时url参数无效</span></span><br><span class="line">    <span class="attr">ondevtoolclose</span>: <span class="title class_">Function</span> | <span class="literal">null</span>;</span><br><span class="line">    <span class="attr">interval</span>: number; <span class="comment">// 定时器的时间间隔 默认200ms</span></span><br><span class="line">    <span class="attr">disableMenu</span>: boolean; <span class="comment">// 是否禁用右键菜单 默认为true</span></span><br><span class="line">    <span class="attr">stopIntervalTime</span>: number; <span class="comment">// 在移动端时取消监视的等待时长</span></span><br><span class="line">    <span class="attr">clearIntervalWhenDevOpenTrigger</span>: boolean; <span class="comment">// 是否在触发之后停止监控</span></span><br><span class="line">    <span class="attr">detectors</span>: <span class="title class_">DetectorType</span>[] | <span class="string">&#x27;all&#x27;</span>;  <span class="comment">// 启用的监测器 默认为全部</span></span><br><span class="line">    <span class="attr">clearLog</span>: boolean; <span class="comment">// 是否每次都清除log</span></span><br><span class="line">    <span class="attr">disableSelect</span>: boolean; <span class="comment">// 是否禁用选择文本 默认为false</span></span><br><span class="line">    <span class="attr">disableCopy</span>: boolean; <span class="comment">// 是否禁用复制 默认为false</span></span><br><span class="line">    <span class="attr">disableCut</span>: boolean; <span class="comment">// 是否禁用剪切 默认为false</span></span><br><span class="line">    <span class="attr">disablePaste</span>: boolean; <span class="comment">// 是否禁用粘贴 默认为false</span></span><br><span class="line">    <span class="attr">ignore</span>: (string|<span class="title class_">RegExp</span>)[] | <span class="literal">null</span> | (<span class="function">()=&gt;</span>boolean); <span class="comment">// 某些情况忽略禁用</span></span><br><span class="line">    <span class="attr">disableIframeParents</span>: boolean; <span class="comment">// iframe中是否禁用所有父窗口，默认 true</span></span><br><span class="line">    <span class="attr">seo</span>: boolean; <span class="comment">// 是否启用对seo进行保护，默认 true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>4.个人选择配置</li>
+</ul>
+<p>我希望默认可以右键可以打开菜单,但是在打开开发者工具时跳转空页面</p>
+<p>设置如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">DisableDevtool</span> <span class="keyword">from</span> <span class="string">&#x27;disable-devtool&#x27;</span>;</span><br><span class="line">​</span><br><span class="line"><span class="title class_">DisableDevtool</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;about:blank&#x27;</span>,</span><br><span class="line">    <span class="attr">timeOutUrl</span>: <span class="string">&#x27;about:blank&#x27;</span>,</span><br><span class="line">    <span class="attr">disableMenu</span>: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>1.禁用按键时注意使用按键的keycode,key还是code</li>
+<li>2.加断点,用户可以通过禁用断点来避开</li>
+<li>3.目前来看使用插件是一个不错的方法,他已经包含了第一种的阻止按键方法</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">ilses1</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2023/11/02/%E7%A6%81%E6%AD%A2%E8%B0%83%E8%AF%95%EF%BC%9F%EF%BC%81%E9%98%BB%E6%AD%A2%E7%94%A8%E6%88%B7%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%B8%89%E5%A4%A7%E6%96%B9%E6%B3%95/">http://example.com/2023/11/02/%E7%A6%81%E6%AD%A2%E8%B0%83%E8%AF%95%EF%BC%9F%EF%BC%81%E9%98%BB%E6%AD%A2%E7%94%A8%E6%88%B7%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%B8%89%E5%A4%A7%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%B0%83%E8%AF%95/">调试</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/10/10/%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AAreduce/" title="手写一个reduce"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">手写一个reduce</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ilses1</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ilses1"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ilses1" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:wusandao2@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言!</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%A6%81%E7%94%A8%E6%8C%89%E9%94%AE"><span class="toc-number">2.</span> <span class="toc-text">1.禁用按键</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E5%A6%82%E4%B8%8B"><span class="toc-number">2.0.1.</span> <span class="toc-text">代码实现如下:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%96%AD%E7%82%B9%E9%98%BB%E6%AD%A2"><span class="toc-number">3.</span> <span class="toc-text">2.断点阻止</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">3.使用插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%A6%82%E4%B8%8B"><span class="toc-number">4.0.1.</span> <span class="toc-text">使用如下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/02/%E7%A6%81%E6%AD%A2%E8%B0%83%E8%AF%95%EF%BC%9F%EF%BC%81%E9%98%BB%E6%AD%A2%E7%94%A8%E6%88%B7%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%B8%89%E5%A4%A7%E6%96%B9%E6%B3%95/" title="禁止调试？！阻止用户打开开发者工具三大方法">禁止调试？！阻止用户打开开发者工具三大方法</a><time datetime="2023-11-02T03:32:48.000Z" title="Created 2023-11-02 11:32:48">2023-11-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/10/%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AAreduce/" title="手写一个reduce">手写一个reduce</a><time datetime="2023-10-10T09:27:07.000Z" title="Created 2023-10-10 17:27:07">2023-10-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/10/%E6%89%8B%E5%86%99eventbus/" title="手写eventbus">手写eventbus</a><time datetime="2023-10-10T09:23:14.000Z" title="Created 2023-10-10 17:23:14">2023-10-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/10/%E6%89%8B%E5%86%99%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/" title="手写防抖节流">手写防抖节流</a><time datetime="2023-10-10T09:19:08.000Z" title="Created 2023-10-10 17:19:08">2023-10-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/10/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%8E%8Basar%E6%96%87%E4%BB%B6-electron%E7%9A%84%E6%89%93%E5%8C%85%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" title="如何解压asar文件(electron的打包二进制文件)">如何解压asar文件(electron的打包二进制文件)</a><time datetime="2023-10-10T07:28:57.000Z" title="Created 2023-10-10 15:28:57">2023-10-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ilses1</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
