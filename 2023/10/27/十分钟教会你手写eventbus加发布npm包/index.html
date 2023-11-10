@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>十分钟教会你手写eventbus加发布npm包 | ilses1's Blogs</title><meta name="author" content="ilses1"><meta name="copyright" content="ilses1"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="0.前言 写这篇文章的主要原因是,看到很多手写evntbus的文章和发布npm包的文章, 但是没有把两者结合在一起的,于是想要写一篇放在一起的文章,这样就实现了一个完整的写工具,到发布工具,到使用工具的整个流程.  本文最后实现的发布包链接如下:https:&#x2F;&#x2F;www.npmjs.com&#x2F;package&#x2F;easyer-eventbus 1.概念1.1eventbuseventbus即事件总线,是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十分钟教会你手写eventbus加发布npm包">
+<meta property="og:url" content="http://example.com/2023/10/27/%E5%8D%81%E5%88%86%E9%92%9F%E6%95%99%E4%BC%9A%E4%BD%A0%E6%89%8B%E5%86%99eventbus%E5%8A%A0%E5%8F%91%E5%B8%83npm%E5%8C%85/index.html">
+<meta property="og:site_name" content="ilses1&#39;s Blogs">
+<meta property="og:description" content="0.前言 写这篇文章的主要原因是,看到很多手写evntbus的文章和发布npm包的文章, 但是没有把两者结合在一起的,于是想要写一篇放在一起的文章,这样就实现了一个完整的写工具,到发布工具,到使用工具的整个流程.  本文最后实现的发布包链接如下:https:&#x2F;&#x2F;www.npmjs.com&#x2F;package&#x2F;easyer-eventbus 1.概念1.1eventbuseventbus即事件总线,是一">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:published_time" content="2023-10-27T02:18:08.000Z">
+<meta property="article:modified_time" content="2023-11-10T02:21:55.275Z">
+<meta property="article:author" content="ilses1">
+<meta property="article:tag" content="eventbus">
+<meta property="article:tag" content="发布npm包">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/2023/10/27/%E5%8D%81%E5%88%86%E9%92%9F%E6%95%99%E4%BC%9A%E4%BD%A0%E6%89%8B%E5%86%99eventbus%E5%8A%A0%E5%8F%91%E5%B8%83npm%E5%8C%85/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '十分钟教会你手写eventbus加发布npm包',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-10 10:21:55'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ilses1's Blogs"><span class="site-name">ilses1's Blogs</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">十分钟教会你手写eventbus加发布npm包</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-10-27T02:18:08.000Z" title="Created 2023-10-27 10:18:08">2023-10-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-10T02:21:55.275Z" title="Updated 2023-11-10 10:21:55">2023-11-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%89%8B%E5%86%99/">手写</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="十分钟教会你手写eventbus加发布npm包"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0.前言"></a>0.前言</h1><blockquote>
+<p>写这篇文章的主要原因是,看到很多手写evntbus的文章和发布npm包的文章,</p>
+<p>但是没有把两者结合在一起的,于是想要写一篇放在一起的文章,这样就实现了一个完整的写工具,到发布工具,到使用工具的整个流程.</p>
+</blockquote>
+<p>本文最后实现的发布包链接如下:<br><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/easyer-eventbus">https://www.npmjs.com/package/easyer-eventbus</a></p>
+<h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h1><h2 id="1-1eventbus"><a href="#1-1eventbus" class="headerlink" title="1.1eventbus"></a>1.1eventbus</h2><p>eventbus即事件总线,是一种利用发布&#x2F;订阅者模式进行组件间通信的方式.</p>
+<p>在EventBus的应用中，不同组件可以订阅事件，也可以发布事件。当一个事件发生时，所有订阅了这个事件的组件都会接收到这个事件，并可以做出相应的处理。</p>
+<ul>
+<li>以下是一个简单的使用例子:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发布信息的组件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">EventBus</span> <span class="keyword">from</span> <span class="string">&#x27;./event-bus.js&#x27;</span>; <span class="comment">// 导入EventBus  </span></span><br><span class="line"><span class="title class_">EventBus</span>.<span class="title function_">emit</span>(<span class="string">&#x27;eventName&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅信息的组件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">EventBus</span> <span class="keyword">from</span> <span class="string">&#x27;./event-bus.js&#x27;</span>; <span class="comment">// 导入EventBus  </span></span><br><span class="line"><span class="title class_">EventBus</span>.<span class="title function_">on</span>(<span class="string">&#x27;eventName&#x27;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(data)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2npm包"><a href="#1-2npm包" class="headerlink" title="1.2npm包"></a>1.2npm包</h2><p>npm相信大家都不会陌生,而且是非常熟悉,我们项目下载依赖和运行命令时会用到,类似Python的pip命令.</p>
+<p>npm全称是<em>Node Package Manager</em>即node包管理,是nodejs默认包管理工具,我们安装nodejs时就会同时安装npm.</p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/">npm官网有着丰富的软件包可以满足你的大部分需求</a><a target="_blank" rel="noopener" href="https://www.npmjs.com/">https://www.npmjs.com</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/fb9002625f04441396c434940c7dd7cb~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013100628192.png"></p>
+<p>但是如果我们发现没有合适的软件包,于是自己实现了一个功能,想要发布到npm网站上,以便自己以后下载或者给其他开发者使用呢?</p>
+<p>那么怎么实现npm发布包呢?别急下面我来教会你</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/3908d556083d457499908e031bfc0447~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013101350431.png"></p>
+<h1 id="2-实现"><a href="#2-实现" class="headerlink" title="2.实现"></a>2.实现</h1><h2 id="2-1-手写eventbus"><a href="#2-1-手写eventbus" class="headerlink" title="2.1 手写eventbus"></a>2.1 手写eventbus</h2><p>eventbus的基本api有on(订阅),emit(发布),once(触发一次订阅后销毁),off(移除回调监听),reset(清除所有订阅)</p>
+<p>是不是感觉有点多,有点望而却步?别怕,这里我们先实现核心的订阅on和发布emit事件</p>
+<h3 id="2-1-1先搭个框架"><a href="#2-1-1先搭个框架" class="headerlink" title="2.1.1先搭个框架"></a>2.1.1先搭个框架</h3><p>首先明确我们的需求:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/5c7e5668806a41f29e16c3191eff693d~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013105256403.png"></p>
+<ul>
+<li><p>1).实现一个eventbus</p>
+</li>
+<li><p>2).实现eventbus的发布事件emit</p>
+</li>
+<li><p>3).实现eventbus的订阅事件on</p>
+</li>
+</ul>
+<p>明确需求后,我们最好先打个框架,就像写作文先写大纲后面写起来就不慌不忙,心中有数一样,写需求先写个框架,也让咱们程序员心中有底,更好完成任务 <del>(方便更好摸鱼,这个划掉)</del></p>
+<p>首先新建一个EventBus函数,再在EventBus函数内部,新建一个on函数和一个emit函数,然后在EventBus函数最后返回on和emit函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">EventBus</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">on</span>(<span class="params"></span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">emit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        on, emit</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-2实现eventbus中的订阅事件on"><a href="#2-1-2实现eventbus中的订阅事件on" class="headerlink" title="2.1.2实现eventbus中的订阅事件on"></a>2.1.2实现eventbus中的订阅事件on</h3><p>这里我们先要实现的是eventbus中的订阅事件on,</p>
+<blockquote>
+<p>诶这里可能有同学就要问了,为什么不先先写发布事件emit呢?实际使用不是我们先emit一个事件,然后再使用on来接收事件吗?按顺序不是应该先写emit事件吗?</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/6147fd0e22cb4984b5f2bb09f77f36ee~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013110400550.png"></p>
+<p>其实没啥为什么,先写emit也可以,硬要解释的话,可以这样理解:</p>
+<p>实际触发事件时,先触发emit事件,然后调用对应on事件的回调函数,在emit事件之前,我们要进行订阅on,告诉eventbus订阅对应的事件和触发的回调,这样emit事件触发时,才能通知对应的事件和回调.</p>
+<p>还是难以理解吗?我来举个外卖的栗子:</p>
+<blockquote>
+<p>我现在很饿,想点一份华莱士蜜汁手扒鸡<del>昨天刚吃</del>,我打开美团外卖,</p>
+<p>下单(<strong>菜品</strong>:蜜汁手扒鸡,<strong>地址</strong>:翻斗花园7栋1208),</p>
+<p>这就相当于订阅事件on,<strong>事件名</strong>是蜜汁手扒鸡,<strong>回调</strong>是送到翻斗花园7栋2208,</p>
+<p>等到店家的<strong>蜜汁手扒鸡做好</strong>后,交给骑手,骑手<strong>查看该订单对应的地址</strong>送货上门,</p>
+<p>这就相当于<strong>发布事件emit</strong>,蜜汁手扒鸡做好<strong>触发emit事件</strong>,然后骑手查询该事件(蜜汁手扒鸡)对应的<strong>回调</strong>(送货地址),<strong>执行回调</strong>(送货上门)</p>
+</blockquote>
+<p>简单来说就是先下单后配送,不下单想白嫖吗?</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/b8912167350c44c6b4a475b71d37eec8~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013112350461.png"></p>
+<p>具体实现如下:</p>
+<ul>
+<li><p>1).建立一个事件池,存储键值对:事件名eventName和对应的回调数组callbacks(因为同一个事件,触发的回调有很多,所以放入数组中)</p>
+</li>
+<li><p>2).订阅事件on,传入两个参数,分别是事件名eventName和回调函数callback,</p>
+</li>
+<li><p>3).根据传入事件名eventName查询是否已经存在该事件的回调数组,没有则新建回调数组</p>
+</li>
+<li><p>4).把传入的回调函数callback加入上一步获取的回调数组callbacks</p>
+</li>
+<li><p>5).更新事件池,即在事件池中存入事件和新的回调数组</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 事件池</span></span><br><span class="line"><span class="keyword">const</span> events = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">EventBus</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 订阅事件</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">on</span>(<span class="params">eventName, callback</span>) &#123;</span><br><span class="line">        <span class="comment">// 1.获取对应事件回调数组,没有则新建</span></span><br><span class="line">        <span class="keyword">const</span> callbacks = events.<span class="title function_">get</span>(eventName) || <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line">        <span class="comment">// 2.把新回调加入回调数组</span></span><br><span class="line">        callbacks.<span class="title function_">add</span>(callback);</span><br><span class="line">        <span class="comment">// 3.更新事件池</span></span><br><span class="line">        events.<span class="title function_">set</span>(eventName, callbacks);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">emit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        on, emit</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-3实现eventbus中的发布事件emit"><a href="#2-1-3实现eventbus中的发布事件emit" class="headerlink" title="2.1.3实现eventbus中的发布事件emit"></a>2.1.3实现eventbus中的发布事件emit</h3><p>emit发布事件就比较简单了,传入事件名和参数,调用对应的回调即可</p>
+<p>具体实现如下:</p>
+<ul>
+<li><p>1).emit发布事件,传入事件名和参数</p>
+</li>
+<li><p>2).根据事件名获取对应事件回调数组</p>
+</li>
+<li><p>3).数组为空则抛出错误,数组存在则执行数组中每个回调并传入参数</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> events = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">EventBus</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">on</span>(<span class="params">eventName, callback</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> callbacks = events.<span class="title function_">get</span>(eventName) || <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line">        callbacks.<span class="title function_">add</span>(callback);</span><br><span class="line">        events.<span class="title function_">set</span>(eventName, callbacks);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 发布事件</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">emit</span>(<span class="params">eventName, payload</span>) &#123;</span><br><span class="line">        <span class="comment">// 1.获取对应事件回调数组</span></span><br><span class="line">        <span class="keyword">const</span> a = events.<span class="title function_">get</span>(eventName);</span><br><span class="line">        <span class="comment">// 2.数组为空则抛出错误,数组存在则执行数组中每个回调并传入参数</span></span><br><span class="line">        <span class="keyword">if</span> (!a) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;事件不存在&#x27;</span>);</span><br><span class="line">        a.<span class="title function_">forEach</span>(<span class="function"><span class="params">fn</span> =&gt;</span> <span class="title function_">fn</span>(payload));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        on, emit</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-4-全部代码"><a href="#2-1-4-全部代码" class="headerlink" title="2.1.4 全部代码"></a>2.1.4 全部代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> events = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">EventBus</span>(<span class="params"></span>) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">on</span>(<span class="params">eventName, callback</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> callbacks = events.<span class="title function_">get</span>(eventName) || <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line">        callbacks.<span class="title function_">add</span>(callback);</span><br><span class="line">        events.<span class="title function_">set</span>(eventName, callbacks);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">emit</span>(<span class="params">eventName, payload</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> a = events.<span class="title function_">get</span>(eventName);</span><br><span class="line">        <span class="keyword">if</span> (!a) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;事件不存在&#x27;</span>);</span><br><span class="line">        a.<span class="title function_">forEach</span>(<span class="function"><span class="params">fn</span> =&gt;</span> <span class="title function_">fn</span>(payload));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        on, emit</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">EventBus</span>();</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-发布npm包"><a href="#2-2-发布npm包" class="headerlink" title="2.2 发布npm包"></a>2.2 发布npm包</h2><h3 id="2-2-1-注册npm账号"><a href="#2-2-1-注册npm账号" class="headerlink" title="2.2.1 注册npm账号"></a>2.2.1 注册npm账号</h3><p>注册:</p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/signup">https://www.npmjs.com/signup</a></p>
+<p>登录:</p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/login">https://www.npmjs.com/login</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/2d85928311df44b0835652db721fdc59~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013140230947.png"></p>
+<p>登录成功如下:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/0f02b4f7bc2643c2bd6ee7525ac16c75~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013141154841.png"></p>
+<h3 id="2-2-2-建立发包文件夹"><a href="#2-2-2-建立发包文件夹" class="headerlink" title="2.2.2 建立发包文件夹"></a>2.2.2 建立发包文件夹</h3><ul>
+<li>1).新建一个文件夹easyer-eventbus</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/89babb89cafe4ef4a6520eda6ebae849~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013143622357.png"></p>
+<ul>
+<li>2).使用vscode打开该文件夹在终端执行<code>npm init</code> 初始化package.json</li>
+</ul>
+<p>基本往下按回车即可,主要是设置包名,版本号,描述,入口文件,关键词,执行命令,git地址,作者,协议等</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">This</span> utility will walk you through creating a package.<span class="property">json</span> file.</span><br><span class="line"><span class="title class_">It</span> only covers the most common items, and tries to guess sensible defaults.</span><br><span class="line"></span><br><span class="line"><span class="title class_">See</span> <span class="string">`npm help init`</span> <span class="keyword">for</span> definitive documentation on these fields</span><br><span class="line">and exactly what they <span class="keyword">do</span>.</span><br><span class="line"></span><br><span class="line"><span class="title class_">Use</span> <span class="string">`npm install &lt;pkg&gt;`</span> afterwards to install a package and</span><br><span class="line">save it <span class="keyword">as</span> a dependency <span class="keyword">in</span> the package.<span class="property">json</span> file.</span><br><span class="line"></span><br><span class="line"><span class="title class_">Press</span> ^C at any time to quit.</span><br><span class="line">package <span class="attr">name</span>: (easyer-eventbus)</span><br><span class="line"><span class="attr">version</span>: (<span class="number">1.0</span><span class="number">.0</span>)</span><br><span class="line"><span class="attr">description</span>:</span><br><span class="line">entry <span class="attr">point</span>: (index.<span class="property">js</span>)</span><br><span class="line">test <span class="attr">command</span>:</span><br><span class="line">git <span class="attr">repository</span>:</span><br><span class="line"><span class="attr">keywords</span>:</span><br><span class="line"><span class="attr">author</span>: fwy</span><br><span class="line"><span class="attr">license</span>: (<span class="variable constant_">ISC</span>)</span><br><span class="line"><span class="title class_">About</span> to write to <span class="attr">E</span>:\桌面\easyer-eventbus\package.<span class="property">json</span>:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;easyer-eventbus&quot;</span>,</span><br><span class="line">  <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;description&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span>,</span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;test&quot;</span>: <span class="string">&quot;echo &quot;</span><span class="title class_">Error</span>: no test specified<span class="string">&quot; &amp;&amp; exit 1&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;author&quot;</span>: <span class="string">&quot;fwy&quot;</span>,</span><br><span class="line">  <span class="string">&quot;license&quot;</span>: <span class="string">&quot;ISC&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3). 在package.json同级目录下新建index.js把步骤2.1.4 的全部代码复制到这里,这个就是我们的入口文件</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/f874e3f267b648228c3f28d4bb65a230~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013142458607.png"></p>
+<h3 id="2-2-3-发布npm包"><a href="#2-2-3-发布npm包" class="headerlink" title="2.2.3 发布npm包"></a>2.2.3 发布npm包</h3><ul>
+<li>1).npm确认为npm原始源</li>
+</ul>
+<p>如果是淘宝源或其他源改为npm源</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 查看npm镜像源地址</span><br><span class="line">npm config get registry</span><br><span class="line"></span><br><span class="line">// 设置npm默认源</span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmjs.org/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2).在命令行上登录npm</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm login</span><br></pre></td></tr></table></figure>
+
+<p>按步骤输入用户名,密码和邮箱的一次性密码</p>
+<ul>
+<li>注意:</li>
+<li>在这里输入密码不会显示出来,这是没问题的,输入完点回车即可</li>
+<li>邮箱的一次性密码需要登录注册npm时的邮箱查看</li>
+</ul>
+<p>登录成功如下:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/3bd52b5b3ba348b8b2e7d629d331e2e2~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013142749410.png"></p>
+<ul>
+<li>3).npm发布</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意:发布前请到npm官网查询是否已经有相同名字的包,如果重名则发布不成功,改一个没被使用的包名即可</li>
+</ul>
+<p>发布成功如下:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/2f2f3ffd479b44c8ad93358e8c2505f0~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013143339924.png"></p>
+<h1 id="3-查询及测试"><a href="#3-查询及测试" class="headerlink" title="3.查询及测试"></a>3.查询及测试</h1><h2 id="3-1-到官网查询刚才发布的包"><a href="#3-1-到官网查询刚才发布的包" class="headerlink" title="3.1 到官网查询刚才发布的包"></a>3.1 到官网查询刚才发布的包</h2><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/">https://www.npmjs.com/</a></p>
+<p>查询成功!!!</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/2eecfa10558345639841900f8f27e9ac~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013143838964.png"></p>
+<blockquote>
+<p>恭喜恭喜!!!到这里你成功学会了简单手写eventbus和发布npm包了,从此你就踏上了自己造轮子的征程,一颗前端新星正在冉冉升起</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/33b1bdc509d345f98ee46ca05a314bda~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013144220795.png"></p>
+<p>如果你还有精力的话可以继续往下看</p>
+<h2 id="3-2-测试使用"><a href="#3-2-测试使用" class="headerlink" title="3.2 测试使用"></a>3.2 测试使用</h2><p>发布成功后,还需要测试一下,我们的包能否正常下载和使用:</p>
+<h3 id="3-2-1-能否使用npm-i-下载"><a href="#3-2-1-能否使用npm-i-下载" class="headerlink" title="3.2.1.能否使用npm i 下载"></a>3.2.1.能否使用npm i 下载</h3><ul>
+<li>打开之前的一个前端项目,随意打开一个即可,有package.json即可</li>
+</ul>
+<p>先切换为淘宝镜像源</p>
+<p><code>npm config set registry https://registry.npm.taobao.org/</code></p>
+<p>执行下载命令</p>
+<p><code>npm i easyer-eventbus</code></p>
+<p>下载成功如下:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/d7289973726b41c689723a6573eb6507~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013145315917.png"></p>
+<p>查看package.json</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/a2d74299ea2c4c38b1cebc4ced722ce8~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013145327016.png"></p>
+<h3 id="3-2-2-eventbus能否使用"><a href="#3-2-2-eventbus能否使用" class="headerlink" title="3.2.2.eventbus能否使用"></a>3.2.2.eventbus能否使用</h3><p>我这里直接使用我的之前的vue项目来测试</p>
+<p>父组件app.vue</p>
+<p>点击按钮发布信息</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=<span class="string">&quot;ts&quot;</span>&gt;</span><br><span class="line"><span class="keyword">import</span> test <span class="keyword">from</span> <span class="string">&quot;./pages/test.vue&quot;</span>;</span><br><span class="line"><span class="comment">// @ts-ignore</span></span><br><span class="line"><span class="keyword">import</span> eventbus <span class="keyword">from</span> <span class="string">&quot;easyer-eventbus&quot;</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">emit</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    eventbus.<span class="title function_">emit</span>(<span class="string">&quot;test&quot;</span>, <span class="string">&quot;hello world !!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">test</span>&gt;</span><span class="tag">&lt;/<span class="name">test</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h1</span> @<span class="attr">click</span>=<span class="string">emit</span>&gt;</span>发布信息<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>子组件test.vue</p>
+<p>在父组件点击按钮后text内容变化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=<span class="string">&quot;ts&quot;</span>&gt;</span><br><span class="line"><span class="comment">// @ts-ignore</span></span><br><span class="line"><span class="keyword">import</span> eventbus <span class="keyword">from</span> <span class="string">&quot;easyer-eventbus&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> text = <span class="title function_">ref</span>(<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line">eventbus.<span class="title function_">on</span>(<span class="string">&quot;test&quot;</span>, <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">    text.<span class="property">value</span> = data</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span> &#123;&#123; text &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>初始状态:</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/66f8f8def9bf4b0d80319c39b31a8712~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="image-20231013152401738.png"></p>
+<blockquote>
+<p>预期状态:点击发布信息后如果 test 文字变为 hello world !! ,那么eventbus就是能够正常使用的</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/ilses1/blogs-img/340b09251d9247af84057e046b558bee~tplv-k3u1fbpfcp-jj-mark%3A0%3A0%3A0%3A0%3Aq75.image" alt="动画.gif"></p>
+<ul>
+<li>打包后的eventbus可以正常使用</li>
+</ul>
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h1><p>本文实现了两个模块,一个是手写简单eventbus,另一个是发布npm包.并进行了下载测试.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">ilses1</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2023/10/27/%E5%8D%81%E5%88%86%E9%92%9F%E6%95%99%E4%BC%9A%E4%BD%A0%E6%89%8B%E5%86%99eventbus%E5%8A%A0%E5%8F%91%E5%B8%83npm%E5%8C%85/">http://example.com/2023/10/27/%E5%8D%81%E5%88%86%E9%92%9F%E6%95%99%E4%BC%9A%E4%BD%A0%E6%89%8B%E5%86%99eventbus%E5%8A%A0%E5%8F%91%E5%B8%83npm%E5%8C%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/eventbus/">eventbus</a><a class="post-meta__tags" href="/tags/%E5%8F%91%E5%B8%83npm%E5%8C%85/">发布npm包</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/11/02/%E7%A6%81%E6%AD%A2%E8%B0%83%E8%AF%95%EF%BC%9F%EF%BC%81%E9%98%BB%E6%AD%A2%E7%94%A8%E6%88%B7%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%B8%89%E5%A4%A7%E6%96%B9%E6%B3%95/" title="禁止调试？！阻止用户打开开发者工具三大方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">禁止调试？！阻止用户打开开发者工具三大方法</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/10/%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AAreduce/" title="手写一个reduce"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">手写一个reduce</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/10/10/%E6%89%8B%E5%86%99eventbus/" title="手写eventbus"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-10</div><div class="title">手写eventbus</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ilses1</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ilses1"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ilses1" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:wusandao2@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">0.前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">1.概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1eventbus"><span class="toc-number">2.1.</span> <span class="toc-text">1.1eventbus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2npm%E5%8C%85"><span class="toc-number">2.2.</span> <span class="toc-text">1.2npm包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">2.实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%89%8B%E5%86%99eventbus"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 手写eventbus</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1%E5%85%88%E6%90%AD%E4%B8%AA%E6%A1%86%E6%9E%B6"><span class="toc-number">3.1.1.</span> <span class="toc-text">2.1.1先搭个框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2%E5%AE%9E%E7%8E%B0eventbus%E4%B8%AD%E7%9A%84%E8%AE%A2%E9%98%85%E4%BA%8B%E4%BB%B6on"><span class="toc-number">3.1.2.</span> <span class="toc-text">2.1.2实现eventbus中的订阅事件on</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3%E5%AE%9E%E7%8E%B0eventbus%E4%B8%AD%E7%9A%84%E5%8F%91%E5%B8%83%E4%BA%8B%E4%BB%B6emit"><span class="toc-number">3.1.3.</span> <span class="toc-text">2.1.3实现eventbus中的发布事件emit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-4-%E5%85%A8%E9%83%A8%E4%BB%A3%E7%A0%81"><span class="toc-number">3.1.4.</span> <span class="toc-text">2.1.4 全部代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%8F%91%E5%B8%83npm%E5%8C%85"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 发布npm包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E6%B3%A8%E5%86%8Cnpm%E8%B4%A6%E5%8F%B7"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.2.1 注册npm账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E5%BB%BA%E7%AB%8B%E5%8F%91%E5%8C%85%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.2.2 建立发包文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E5%8F%91%E5%B8%83npm%E5%8C%85"><span class="toc-number">3.2.3.</span> <span class="toc-text">2.2.3 发布npm包</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B5%8B%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text">3.查询及测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%88%B0%E5%AE%98%E7%BD%91%E6%9F%A5%E8%AF%A2%E5%88%9A%E6%89%8D%E5%8F%91%E5%B8%83%E7%9A%84%E5%8C%85"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 到官网查询刚才发布的包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 测试使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E8%83%BD%E5%90%A6%E4%BD%BF%E7%94%A8npm-i-%E4%B8%8B%E8%BD%BD"><span class="toc-number">4.2.1.</span> <span class="toc-text">3.2.1.能否使用npm i 下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-eventbus%E8%83%BD%E5%90%A6%E4%BD%BF%E7%94%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">3.2.2.eventbus能否使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">4.总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/02/%E7%A6%81%E6%AD%A2%E8%B0%83%E8%AF%95%EF%BC%9F%EF%BC%81%E9%98%BB%E6%AD%A2%E7%94%A8%E6%88%B7%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%B8%89%E5%A4%A7%E6%96%B9%E6%B3%95/" title="禁止调试？！阻止用户打开开发者工具三大方法">禁止调试？！阻止用户打开开发者工具三大方法</a><time datetime="2023-11-02T03:32:48.000Z" title="Created 2023-11-02 11:32:48">2023-11-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/27/%E5%8D%81%E5%88%86%E9%92%9F%E6%95%99%E4%BC%9A%E4%BD%A0%E6%89%8B%E5%86%99eventbus%E5%8A%A0%E5%8F%91%E5%B8%83npm%E5%8C%85/" title="十分钟教会你手写eventbus加发布npm包">十分钟教会你手写eventbus加发布npm包</a><time datetime="2023-10-27T02:18:08.000Z" title="Created 2023-10-27 10:18:08">2023-10-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/10/%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AAreduce/" title="手写一个reduce">手写一个reduce</a><time datetime="2023-10-10T09:27:07.000Z" title="Created 2023-10-10 17:27:07">2023-10-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/10/%E6%89%8B%E5%86%99eventbus/" title="手写eventbus">手写eventbus</a><time datetime="2023-10-10T09:23:14.000Z" title="Created 2023-10-10 17:23:14">2023-10-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/10/%E6%89%8B%E5%86%99%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/" title="手写防抖节流">手写防抖节流</a><time datetime="2023-10-10T09:19:08.000Z" title="Created 2023-10-10 17:19:08">2023-10-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ilses1</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
